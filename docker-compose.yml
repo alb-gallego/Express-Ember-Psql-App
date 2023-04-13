@@ -1,0 +1,59 @@
+version: '3.8'
+services:
+  express-app:
+    container_name: express-app
+    build:
+      context: express-app
+    command: npm run start
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DEBUG: nodejs-docker-express:*
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: postgres
+    links:
+      - db
+    labels:
+      - "com.docker.compose.container-number=1"
+    depends_on:
+      - db
+    volumes:
+      - ./express-app:/src
+      - /src/node_modules
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+
+  ember-app:
+    container_name: ember-app
+    build:
+      context: ember-app
+    command: npm run start
+    ports:
+      - "4200:4200"
+    environment:
+      NODE_ENV: development
+      DEBUG: nodejs-docker-ember:*
+    labels:
+      - "com.docker.compose.container-number=1"
+    depends_on:
+      - express-app
+    volumes:
+      - ./ember-app:/app
+      - /src/node_modules
+volumes:
+  db:
+    driver: local

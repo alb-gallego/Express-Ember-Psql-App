@@ -1,0 +1,14 @@
+  <div class="flex items-center justify-center">
+  <label class="m-4">
+    <span class="text-3xl © font-semibold">Where would you like to stay?</span>
+    <Input @value={{this.query}}   class="border-black border-2 rounded-md border-solid" />
+
+  </label>
+  </div>
+  <ul class="results">
+    <Rentals::Filter @rentals={{@this.rentals}} @query={{this.query}} as |results|>
+      {{#each results as |rental|}}
+        <li><Rental @rental={{rental}} /></li>
+      {{/each}}
+    </Rentals::Filter>
+  </ul>

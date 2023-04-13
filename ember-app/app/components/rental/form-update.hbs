@@ -1,0 +1,93 @@
+<div class="flex justify-center items-center  flex-wrap mt-4 ">
+{{#if  (not (is-empty this.errors))}}
+  <div class="bg-red-200 p-4 mb-4">
+    <h2 class="text-red-700 font-bold mb-2">Validation errors:</h2>
+    {{#each this.errors as |error|}}
+      <p class="text-red-700">{{error}}</p>
+    {{/each}}
+  </div>
+{{/if}}
+</div>
+
+<div class="flex justify-center items-center flex-wrap mt-4 ">
+<form {{on "submit" this.updateRental}} class="bg-slate-300 rounded-md">
+  <label class="m-4 flex justify-center items-center">
+    <span class="text-3xl font-semibold">Image:</span>
+    <input
+      type="url"
+      class="border-black border-2 rounded-md text-center border-solid"
+      name="image"
+      placeholder="Image URL"
+      value="{{@rental.image}}"
+    />
+  </label>
+  <label class="m-4 flex justify-center items-center">
+    <span class="text-3xl font-semibold">Title:</span>
+    <input
+      type="text"
+      class="border-black border-2 rounded-md text-center border-solid"
+      name="title"
+      placeholder="Title"
+      value="{{@rental.title}}"
+    />
+  </label>
+  <label class="m-4 flex justify-center items-center">
+    <span class="text-3xl font-semibold">Owner:</span>
+    <input
+      type="text"
+      class="border-black border-2 rounded-md text-center border-solid"
+      name="owner"
+      placeholder="Owner"
+      value="{{@rental.owner}}"
+    />
+  </label>
+  <label class="m-4 flex justify-center items-center">
+    <span class="text-3xl font-semibold">City:</span>
+    <input
+      type="text"
+      class="border-black border-2 rounded-md text-center border-solid"
+      name="city"
+      placeholder="City"
+      value="{{@rental.city}}"
+    />
+  </label>
+  <label class="m-4 flex justify-center items-center">
+    <span class="text-3xl font-semibold">Category:</span>
+    <select name="category">
+      {{#if (@rental.category "Community")}}
+        <option value="Community" selected>Community</option>
+      {{else}}
+        <option value="Community">Community</option>
+      {{/if}}
+      {{#if (@rental.category "Standalone")}}
+        <option value="Standalone" selected>Standalone</option>
+      {{else}}
+        <option value="Standalone">Standalone</option>
+      {{/if}}
+
+    </select>
+  </label>
+  <label class="m-4 flex justify-center items-center">
+    <span class="text-3xl font-semibold">Bedrooms:</span>
+    <input
+      type="number"
+      class="border-black border-2 rounded-md text-center border-solid"
+      name="bedrooms"
+      placeholder="Bedrooms"
+      value="{{@rental.bedrooms}}"
+    />
+  </label>
+  <label class="m-4 flex justify-center items-center">
+    <span class="text-3xl font-semibold">Description:</span>
+    <input
+      type="text"
+      class="border-black border-2 rounded-md text-center border-solid"
+      name="description"
+      placeholder="Description"
+      value="{{@rental.description}}"
+    />
+  </label>
+  <div class="flex justify-center text-center items-center p-6">
+  <button  type="submit" class="bg-blue-300 text-xl  rounded-md py-4 px-6 text-yellow-100">UPDATE</button></div>
+
+</form></div>

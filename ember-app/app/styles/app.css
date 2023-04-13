@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  .detail{
+    @apply my-3;
+  }
+  .detail span{
+    @apply font-bold
+  }
+  .button {
+    @apply bg-blue-500 hover:animate-bounce hover:bg-blue-300  text-white   px-6 py-1.5 inline-block  rounded-md ;
+  }
+  .title{
+    @apply font-extrabold text-4xl;
+  }
+}

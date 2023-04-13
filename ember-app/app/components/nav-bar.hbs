@@ -1,0 +1,35 @@
+<nav class="bg-red-400 w-screen sticky">
+  <div class="mx-auto p-5 flex flex-wrap justify-start">
+
+    <div class="p-2">
+      <LinkTo
+        @route="index"
+        class="font-semiboldbold text-white text-3xl italic"
+
+      >
+        <h1>SuperRentals</h1>
+      </LinkTo>
+    </div>
+    <div class="my-auto text-lg">
+      <LinkTo
+        @route="about"
+        class="mx-3 hover:bg-slate-200 text-white hover:text-red-900"
+      >
+        About
+      </LinkTo>
+      <LinkTo
+        @route="contact"
+        class="mx-3 hover:bg-slate-200 text-white hover:text-red-900"
+      >
+        Contact
+      </LinkTo>
+  <LinkTo
+        @route="create-rental"
+        class="mx-3 hover:bg-slate-200 text-white hover:text-red-900"
+      >
+        Create Rental
+      </LinkTo>
+    </div>
+  </div>
+
+</nav>
