@@ -8,12 +8,14 @@ export default class RentalForm extends Component {
   @service router: any;
 
   @action
-  async deleteRental(rental: any) {
+  async deleteRental(rental: Rental) {
     try {
       const rentalD = await this.store.findRecord('rental', rental.id);
 
       if (rentalD.isDeleted || rentalD.isSaving) {
-        console.log('El registro ya ha sido eliminado o se está eliminando actualmente');
+        console.log(
+          'El registro ya ha sido eliminado o se está eliminando actualmente'
+        );
       } else {
         rentalD.deleteRecord();
         await rentalD.save();
@@ -23,8 +25,6 @@ export default class RentalForm extends Component {
       console.error(`Error al eliminar el registro: ${error}`);
     }
   }
-
-
 
   // console.log(rental.isDeleted);
   // await rentalD.save();

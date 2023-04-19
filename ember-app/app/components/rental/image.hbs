@@ -1,21 +1,12 @@
-{{#if this.isLarge}}
-
-    <button
-      type="button"
-      class="cursor-zoom-in hover:drop-shadow-xl h-52 max-w-full text-blue-500 justify-self-center"
-      {{on "click" this.toggleSize}}
-    >
-      <img class="rounded-lg" ...attributes />
-      <small>View Smaller</small>
-    </button>
+{{#if @this.isLarge}}
+  <button type='button' {{on 'click' this.toggleSize}}>
+    <img class='rounded-xl shadow-lg max-w-full w-full h-full' ...attributes />
+    <small class='text-blue-400'>View Larger</small>
+  </button>
 {{else}}
-    <button
-      type="button"
-      class="cursor-zoom-in hover:drop-shadow-xl justify-self-center h-32 w-52 text-blue-500"
-      {{on "click" this.toggleSize}}
-    >
-      <img class="rounded-lg" ...attributes />
-      <small>View Larger</small>
+  <button type='button' {{on 'click' this.toggleSize}}>
+    <img ...attributes class='rounded-xl shadow-lg max-w-full w-28 h-24' />
+    <small class='text-blue-400'>View Smaller</small>
 
-    </button>
+  </button>
 {{/if}}

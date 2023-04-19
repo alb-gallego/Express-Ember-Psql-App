@@ -1,74 +1,139 @@
+{{!-- <div class='flex justify-center items-center flex-wrap mt-4'>
+  {{#if this.errors}}
+    <div class='bg-red-200 p-4 mb-4'>
+      <h2 class='text-red-700 font-bold mb-2'>Correct errors:</h2>
+    </div>
+  {{/if}}
+</div> --}}
 
-<div class="flex justify-center items-center  flex-wrap mt-4 ">
-{{#if  (not (is-empty this.errors))}}
-  <div class="bg-red-200 p-4 mb-4">
-    <h2 class="text-red-700 font-bold mb-2">Validation errors:</h2>
-    {{#each this.errors as |error|}}
-      <p class="text-red-700">{{error}}</p>
-    {{/each}}
+<form
+  {{on 'submit' this.sendRental}}
+  class='bg-slate-300 rounded-md p-2 flex flex-wrap items-center justify-center min-h-full mx-auto max-w-lg'
+>
+
+  <div class='flex flex-col flex-wrap'>
+    <div class='flex flex-row flex-wrap'>
+      <div class='flex flex-col flex-wrap'>
+
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Images</span>
+          <input
+            type='url'
+            class='border-black border-2 rounded-md h-10 text-center border-solid'
+            name='image'
+            placeholder='Image URL'
+          />
+        </label>
+        {{#if this.errors.image}}
+          <div class='bg-red-200 p-4 mb-4'>
+            <p class='text-red-700 font-bold mb-2'>{{this.errors.image}}</p>
+          </div>
+        {{/if}}
+
+        {{!-- {{else if (eq key 'title')}} --}}
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Title</span>
+          <input
+            type='text'
+            class='border-black border-2 rounded-md text-center h-10 border-solid'
+            name='title'
+            placeholder='Title'
+          />
+
+        </label>
+        {{#if this.errors.title}}
+          <div class='bg-red-200 p-4 mb-4'>
+            <p class='text-red-700 font-bold mb-2'>{{this.errors.title}}</p>
+          </div>
+        {{/if}}
+
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Owner</span>
+          <input
+            type='text'
+            class='border-black border-2 rounded-md h-10 text-center border-solid'
+            name='owner'
+            placeholder='Owner'
+          />
+        </label>
+        {{#if this.errors.owner}}
+          <div class='bg-red-200 p-4 mb-4'>
+            <p class='text-red-700 font-bold mb-2'>{{this.errors.owner}}</p>
+          </div>
+        {{/if}}
+      </div>
+      <div class='flex flex-col flex-wrap'>
+
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>City</span>
+          <input
+            type='text'
+            class='border-black border-2 rounded-md h-10 text-center border-solid'
+            name='city'
+            placeholder='City'
+          />
+        </label>
+        {{#if this.errors.city}}
+          <div class='bg-red-200 p-4 mb-4'>
+            <p class='text-red-700 font-bold mb-2'>{{this.errors.city}}</p>
+          </div>
+        {{/if}}
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Category</span>
+          <select
+            name='category'
+            class='border-black border-2 rounded-md h-10 w-full text-md text-center'
+          >
+            <option value='Community' selected>Community</option>
+            <option value='Standalone'>Standalone</option>
+          </select>
+        </label>
+        {{#if this.errors.category}}
+          <div class='bg-red-200 p-4 mb-4'>
+            <p class='text-red-700 font-bold mb-2'>{{this.errors.category}}</p>
+          </div>
+        {{/if}}
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Bedrooms</span>
+          <input
+            type='number'
+            class='border-black border-2 rounded-md h-10 text-center border-solid'
+            name='bedrooms'
+            placeholder='Bedrooms'
+          />
+        </label>
+        {{#if this.errors.bedrooms}}
+          <div class='bg-red-200 p-4 mb-4'>
+            <p class='text-red-700 font-bold mb-2'>{{this.errors.bedrooms}}</p>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+    <div class='flex flex-col flex-wrap'>
+
+      <label class='block md:mx-auto lg:mx-auto sm:ml-4 mx-4 w-full'>
+        <span
+          class='text-3xl font-semibold block my-4 text-center'
+        >Description</span>
+        <textarea
+          type='text'
+          class='border-black border-2 rounded-md text-center h-32 border-solid w-full'
+          name='description'
+          placeholder='Description'
+        />
+      </label>
+      {{#if this.errors.description}}
+        <div class='bg-red-200 p-4 mb-4'>
+          <p class='text-red-700 font-bold mb-2'>{{this.errors.description}}</p>
+        </div>
+      {{/if}}
+
+      <button
+        type='submit'
+        class='bg-blue-300 text-xl rounded-md inline-block mx-auto my-4 text-yellow-100 p-5'
+      >CREATE</button>
+
+    </div>
   </div>
-{{/if}}
-</div>
-<div class="container mx-auto mt-4 ">
 
-  <form {{on "submit" this.sendRental}} class="bg-slate-300  rounded-md p-14 ">
-<div class="flex flex-wrap justify-end flex-col">
-  <div class="w-full md:w-1/3 px-4 mb-4">
-    <label class="flex flex-col">
-      <span class="text-3xl my-2 font-semibold">Images</span>
-      <input type="url" class="border-black border-2 rounded-md text-center border-solid" name="image" placeholder="Image URL">
-    </label>
-  </div>
-  <div class="w-full md:w-1/3 px-4 mb-4">
-    <label class="flex flex-col">
-      <span class="text-3xl my-2 font-semibold">Title</span>
-      <input type="text" class="border-black border-2 rounded-md text-center border-solid" name="title" placeholder="Title">
-    </label>
-  </div>
-  <div class="w-full md:w-1/3 px-4 mb-4">
-    <label class="flex flex-col">
-      <span class="text-3xl my-2 font-semibold">Owner</span>
-      <input type="text" class="border-black border-2 rounded-md text-center border-solid" name="owner" placeholder="Owner">
-    </label>
-  </div>
-
-  <div class="w-full md:w-1/3 px-4 mb-4">
-    <label class="flex flex-col">
-      <span class="text-3xl my-2 font-semibold">City</span>
-      <input type="text" class="border-black border-2 rounded-md text-center border-solid" name="city" placeholder="City">
-    </label>
-  </div>
-  <div class="w-full md:w-1/3 px-4 mb-4">
-    <label class="flex flex-col">
-      <span class="text-3xl my-2 font-semibold">Category</span>
-      <select name="category" class="p-3 rounded-md">
-        <option value="Community" selected>Community</option>
-        <option value="Standalone">Standalone</option>
-      </select>
-    </label>
-  </div>
-  <div class="w-full md:w-1/3 px-4 mb-4">
-    <label class="flex flex-col">
-      <span class="text-3xl my-2 font-semibold">Bedrooms</span>
-      <input type="number" class="border-black border-2 rounded-md text-center border-solid" name="bedrooms" placeholder="Bedrooms">
-    </label>
-  </div>
-
-  <div class="w-full px-4 mb-4">
-    <label class="flex flex-col">
-      <span class="text-3xl my-2 font-semibold">Description</span>
-      <input type="text" class="border-black border-2 rounded-md text-center border-solid" name="description" placeholder="Description">
-    </label>
-  </div>
-
-  <div class="w-full flex justify-center items-center">
-    <button type="submit" class="bg-blue-300 text-xl rounded-md py-4 px-6 text-yellow-100">CREATE</button>
-  </div>
-</div>
-
-  </form>
-
-</div>
-
-
-
+</form>

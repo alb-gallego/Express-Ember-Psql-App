@@ -5,10 +5,28 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import checkErrors from 'super-rentals/utils/validation';
 
+export interface InputError {
+  image?: string;
+  title?: string;
+  category?: string;
+  owner?: string;
+  city?: string;
+  bedrooms?: string;
+  description?: string;
+}
+
 export default class RentalForm extends Component {
   @service store: any;
   @service router!: Router;
-  @tracked errors: string[] = [];
+  @tracked errors: InputError = {
+    image: '',
+    title: '',
+    category: '',
+    owner: '',
+    city: '',
+    bedrooms: '',
+    description: '',
+  };
 
   @action
   async sendRental(event: Event) {
@@ -16,6 +34,7 @@ export default class RentalForm extends Component {
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     const formValues: Record<string, string> = {};
+    console.log(Object.keys(this.errors).length);
 
     formData.forEach((value, key) => {
       formValues[key] = value.toString();
@@ -24,9 +43,15 @@ export default class RentalForm extends Component {
     this.errors = checkErrors(formValues);
 
     //If there are errors, it doesnt send data
-    if (this.errors.length > 0) {
+    // const errorsNotEmpty = Object.values(this.errors).every(
+    //   (value) => value !== ''
+    // );
+    // console.log(errorsNotEmpty);
+
+    if (Object.keys(this.errors).length > 0) {
       return;
     }
+
     let post = this.store.createRecord('rental', {
       title: formValues['title'],
       image: formValues['image'],
@@ -38,10 +63,7 @@ export default class RentalForm extends Component {
     });
 
     try {
-      console.log('1212');
-
       post.save();
-      console.log('prue');
 
       this.router.transitionTo('index');
       console.log('RUTA A INDEX');

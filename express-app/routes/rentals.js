@@ -6,11 +6,11 @@ const JSONAPISerializer = require("jsonapi-serializer").Serializer;
 const config = {
   user: "postgres",
   //CONFIG FOR LOCAL MACHINE
-  // host: "localhost",
-  // database: "databasenode",
+  host: "localhost",
+  database: "databasenode",
   //CONFIG FOR DOCKER COMPOSE
-  host: "db",
-  database: 'postgres',
+  // host: "db",
+  // database: 'postgres',
   password: "mysecretpassword",
   port: 5432,
   ssl: false,
@@ -81,14 +81,18 @@ const getRentalById = async (req, res) => {
 };
 
 function checkAttributes(attributes, key, errors) {
-  if (attributes?.[key]?.length < 5 && key !== "category" && key !== "bedrooms") {
+  if (
+    attributes?.[key]?.length < 5 &&
+    key !== "category" &&
+    key !== "bedrooms"
+  ) {
     errors.push(`${key} length must be greater than 5`);
   } else if (key === "bedrooms" && attributes[key] <= 0) {
     errors.push(`${key}  must be greater than 0`);
   } else if (
     key === "category" &&
-    (attributes["category"] !== "Community" &&
-      attributes["category"] !== "Standalone")
+    attributes["category"] !== "Community" &&
+    attributes["category"] !== "Standalone"
   ) {
     errors.push(`${key}  must be Community or Standalone`);
   }

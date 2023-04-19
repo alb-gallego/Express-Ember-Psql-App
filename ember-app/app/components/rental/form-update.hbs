@@ -1,93 +1,123 @@
-<div class="flex justify-center items-center  flex-wrap mt-4 ">
-{{#if  (not (is-empty this.errors))}}
-  <div class="bg-red-200 p-4 mb-4">
-    <h2 class="text-red-700 font-bold mb-2">Validation errors:</h2>
-    {{#each this.errors as |error|}}
-      <p class="text-red-700">{{error}}</p>
-    {{/each}}
-  </div>
-{{/if}}
+<div class='flex justify-center items-center flex-wrap mt-4'>
+  {{#if (not (is-empty this.errors))}}
+    <div class='bg-red-200 p-4 mb-4'>
+      <h2 class='text-red-700 font-bold mb-2'>Validation errors:</h2>
+      {{#each this.errors as |error|}}
+        <p class='text-red-700'>{{error}}</p>
+      {{/each}}
+    </div>
+  {{/if}}
 </div>
 
-<div class="flex justify-center items-center flex-wrap mt-4 ">
-<form {{on "submit" this.updateRental}} class="bg-slate-300 rounded-md">
-  <label class="m-4 flex justify-center items-center">
-    <span class="text-3xl font-semibold">Image:</span>
-    <input
-      type="url"
-      class="border-black border-2 rounded-md text-center border-solid"
-      name="image"
-      placeholder="Image URL"
-      value="{{@rental.image}}"
-    />
-  </label>
-  <label class="m-4 flex justify-center items-center">
-    <span class="text-3xl font-semibold">Title:</span>
-    <input
-      type="text"
-      class="border-black border-2 rounded-md text-center border-solid"
-      name="title"
-      placeholder="Title"
-      value="{{@rental.title}}"
-    />
-  </label>
-  <label class="m-4 flex justify-center items-center">
-    <span class="text-3xl font-semibold">Owner:</span>
-    <input
-      type="text"
-      class="border-black border-2 rounded-md text-center border-solid"
-      name="owner"
-      placeholder="Owner"
-      value="{{@rental.owner}}"
-    />
-  </label>
-  <label class="m-4 flex justify-center items-center">
-    <span class="text-3xl font-semibold">City:</span>
-    <input
-      type="text"
-      class="border-black border-2 rounded-md text-center border-solid"
-      name="city"
-      placeholder="City"
-      value="{{@rental.city}}"
-    />
-  </label>
-  <label class="m-4 flex justify-center items-center">
-    <span class="text-3xl font-semibold">Category:</span>
-    <select name="category">
-      {{#if (@rental.category "Community")}}
-        <option value="Community" selected>Community</option>
-      {{else}}
-        <option value="Community">Community</option>
-      {{/if}}
-      {{#if (@rental.category "Standalone")}}
-        <option value="Standalone" selected>Standalone</option>
-      {{else}}
-        <option value="Standalone">Standalone</option>
-      {{/if}}
+<form
+  id='rental-form'
+  {{on 'submit' this.updateRental}}
+  class='bg-slate-300 rounded-md p-2 flex flex-wrap items-center justify-center min-h-full max-w-lg'
+  {{on 'focusout' (fn this.checkRental '#rental-form')}}
+>
+  <div class='flex flex-col flex-wrap'>
+    <div class='flex flex-row flex-wrap'>
+      <div class='flex flex-col flex-wrap'>
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Images</span>
+          <input
+            type='url'
+            class='border-black border-2 rounded-md h-10 text-center border-solid'
+            name='image'
+            placeholder='Image URL'
+            value='{{@rental.image}}'
+            {{!-- {{on 'focusout' this.updateRental}} --}}
+          />
+        </label>
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Title</span>
+          <input
+            type='text'
+            class='border-black border-2 rounded-md text-center h-10 border-solid'
+            name='title'
+            placeholder='Title'
+            value='{{@rental.title}}'
+            {{!-- {{on 'focusout' this.checkRental}} --}}
+          />
+        </label>
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Owner</span>
+          <input
+            type='text'
+            class='border-black border-2 rounded-md h-10 text-center border-solid'
+            name='owner'
+            placeholder='Owner'
+            value='{{@rental.owner}}'
+            {{!-- {{on 'focusout' this.checkRental}} --}}
+          />
+        </label>
+      </div>
+      <div class='flex flex-col flex-wrap'>
 
-    </select>
-  </label>
-  <label class="m-4 flex justify-center items-center">
-    <span class="text-3xl font-semibold">Bedrooms:</span>
-    <input
-      type="number"
-      class="border-black border-2 rounded-md text-center border-solid"
-      name="bedrooms"
-      placeholder="Bedrooms"
-      value="{{@rental.bedrooms}}"
-    />
-  </label>
-  <label class="m-4 flex justify-center items-center">
-    <span class="text-3xl font-semibold">Description:</span>
-    <input
-      type="text"
-      class="border-black border-2 rounded-md text-center border-solid"
-      name="description"
-      placeholder="Description"
-      value="{{@rental.description}}"
-    />
-  </label>
-  <div class="flex justify-center text-center items-center p-6">
-  <button  type="submit" class="bg-blue-300 text-xl  rounded-md py-4 px-6 text-yellow-100">UPDATE</button></div>
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>City</span>
+          <input
+            type='text'
+            class='border-black border-2 rounded-md h-10 text-center border-solid'
+            name='city'
+            placeholder='City'
+            value='{{@rental.city}}'
+            {{!-- {{on 'focusout' this.checkRental}} --}}
+          />
+        </label>
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Category</span>
+          <select
+            name='category'
+            class='border-black border-2 rounded-md h-10 w-full text-center'
+            {{!-- {{on 'focusout' this.checkRental}} --}}
+          >
+            {{#if (@rental.category 'Community')}}
+              <option value='Community' selected>Community</option>
+            {{else}}
+              <option value='Community'>Community</option>
+            {{/if}}
+            {{#if (@rental.category 'Standalone')}}
+              <option value='Standalone' selected>Standalone</option>
+            {{else}}
+              <option value='Standalone'>Standalone</option>
+            {{/if}}
 
-</form></div>
+          </select>
+        </label>
+        <label class='mx-4'>
+          <span class='text-3xl my-4 font-semibold block'>Bedrooms</span>
+          <input
+            type='number'
+            class='border-black border-2 rounded-md h-10 text-center border-solid'
+            name='bedrooms'
+            placeholder='Bedrooms'
+            value='{{@rental.bedrooms}}'
+            {{!-- {{on 'focusout' this.checkRental}} --}}
+          />
+        </label>
+      </div>
+    </div>
+    <div class='flex flex-col flex-wrap'>
+
+      <label class='block md:mx-auto lg:mx-auto sm:ml-4 mx-4 w-full'>
+        <span
+          class='text-3xl font-semibold block my-4 text-center'
+        >Description</span>
+        <textarea
+          type='text'
+          class='border-black border-2 rounded-md text-center h-32 border-solid w-full'
+          name='description'
+          placeholder='Description'
+          value='{{this.rental.description}}'
+          {{!-- {{on 'focusout' this.checkRental}} --}}
+        />
+      </label>
+      <button
+        type='submit'
+        class='bg-blue-300 text-xl rounded-md inline-block mx-auto my-4 text-yellow-100 p-5'
+      >UPDATE</button>
+
+    </div>
+  </div>
+</form>

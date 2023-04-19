@@ -1,40 +1,89 @@
-<div
-  class="p-5 drop-shadow-lg duration-700 hover:skew-y-12 text-center bg-slate-100 m-5 rounded-xl flex flex-wrap"
->
-  <div class="static">
-    <Rental::Image src={{@rental.image}} alt="A picture of {{@rental.title}}" />
-  </div>
-  <div class="grid grid-rows-2 align-middle place-content-between">
-    <div class="flex items-center justify-center">
-      <h3 class="text-3xl font-semibold">
-        <LinkTo @route="rental" @model={{@rental}}>
+{{#if this.flexCol}}
+
+  <div
+    class='m-5 flex flex-wrap justify-center rounded-xl bg-slate-100 p-8 text-center drop-shadow-lg transition delay-150 duration-700 ease-in-out hover:-translate-y-1 hover:scale-125 flex-col'
+  >
+    <Rental::Image
+      src={{@rental.image}}
+      alt='A picture of {{@rental.title}}'
+      @isLarge={{this.flexCol}}
+      {{on 'click' this.changeFlex}}
+    />
+    <div class='flex flex-col items-center justify-center'>
+      <h3 class='text-3xl font-semibold'>
+        <LinkTo @route='rental' @model={{@rental}}>
           {{@rental.title}}
         </LinkTo>
       </h3>
-    </div>
 
-    <div class="grid grid-cols-2 place-items-center">
-      <div class="detail">
-        <div>
-          <span>Owner:</span>
-          {{@rental.owner}}
+      <div class='flex flex-row flex-wrap items-center justify-center'>
+        <div class='detail flex flex-wrap flex-col justify-center'>
+          <div>
+            <span>Owner</span>
+            {{@rental.owner}}
+          </div>
+          <div>
+            <span>Type:</span>
+            {{@rental.type}}
+          </div>
         </div>
-        <div>
-          <span>Type:</span>
-          {{@rental.type}}
+
+        <div class='detail mx-4 flex flex-wrap flex-col justify-center'>
+          <div>
+            <span>Location:</span>
+            {{@rental.city}}
+          </div>
+          <div>
+            <span>Number of bedrooms:</span>
+            {{@rental.bedrooms}}
+          </div>
         </div>
       </div>
-      <div class="detail">
-        <div>
-          <span>Location:</span>
-          {{@rental.city}}
-        </div>
-        <div>
-          <span>Number of bedrooms:</span>
-          {{@rental.bedrooms}}
-        </div>
-      </div>
-
     </div>
   </div>
-</div>
+{{else}}
+  <div
+    class='m-5 flex flex-wrap justify-center rounded-xl bg-slate-100 p-8 text-center drop-shadow-lg transition delay-150 duration-700 ease-in-out hover:-translate-y-1 hover:scale-125'
+  >
+    <div class='flex flex-wrap items-center justify-center'>
+      <Rental::Image
+        src={{@rental.image}}
+        alt='A picture of {{@rental.title}}'
+        @isLarge={{this.flexCol}}
+        {{on 'click' this.changeFlex}}
+      />
+
+    </div>
+
+    <div class='mx-8 flex flex-col items-center justify-center'>
+      <h3 class='text-3xl font-semibold'>
+        <LinkTo @route='rental' @model={{@rental}}>
+          {{@rental.title}}
+        </LinkTo>
+      </h3>
+
+      <div class='flex flex-row items-center justify-center'>
+        <div class='detail'>
+          <div>
+            <span>Owner</span>
+            {{@rental.owner}}
+          </div>
+          <div>
+            <span>Type:</span>
+            {{@rental.type}}
+          </div>
+        </div>
+        <div class='detail mx-4'>
+          <div>
+            <span>Location:</span>
+            {{@rental.city}}
+          </div>
+          <div>
+            <span>Number of bedrooms:</span>
+            {{@rental.bedrooms}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
