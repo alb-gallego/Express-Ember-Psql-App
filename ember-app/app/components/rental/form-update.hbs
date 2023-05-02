@@ -1,123 +1,174 @@
-<div class='flex justify-center items-center flex-wrap mt-4'>
-  {{#if (not (is-empty this.errors))}}
-    <div class='bg-red-200 p-4 mb-4'>
-      <h2 class='text-red-700 font-bold mb-2'>Validation errors:</h2>
-      {{#each this.errors as |error|}}
-        <p class='text-red-700'>{{error}}</p>
-      {{/each}}
-    </div>
-  {{/if}}
-</div>
-
 <form
-  id='rental-form'
   {{on 'submit' this.updateRental}}
-  class='bg-slate-300 rounded-md p-2 flex flex-wrap items-center justify-center min-h-full max-w-lg'
-  {{on 'focusout' (fn this.checkRental '#rental-form')}}
+  {{on 'input' this.checkForm}}
+  class='my-5'
 >
-  <div class='flex flex-col flex-wrap'>
-    <div class='flex flex-row flex-wrap'>
-      <div class='flex flex-col flex-wrap'>
-        <label class='mx-4'>
-          <span class='text-3xl my-4 font-semibold block'>Images</span>
+  <div
+    class='mx-auto flex w-full max-w-sm flex-col rounded-md border border-gray-200 bg-slate-300 p-4 shadow'
+  >
+    <div class='flex flex-row justify-center'>
+      <div class='mb-4 flex flex-col p-2'>
+        <label
+          for='image'
+          class='mb-1 text-xl font-semibold tracking-wide text-black sm:text-sm'
+        >
+          Image
           <input
-            type='url'
-            class='border-black border-2 rounded-md h-10 text-center border-solid'
             name='image'
-            placeholder='Image URL'
-            value='{{@rental.image}}'
-            {{!-- {{on 'focusout' this.updateRental}} --}}
-          />
-        </label>
-        <label class='mx-4'>
-          <span class='text-3xl my-4 font-semibold block'>Title</span>
-          <input
             type='text'
-            class='border-black border-2 rounded-md text-center h-10 border-solid'
+            placeholder='Image'
+            value='{{@rental.image}}'
+            class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+          /></label>
+
+        <div class='h-8'>
+          {{#if this.errors.image}}
+            <span
+              class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+            > {{this.errors.image}} </span>
+
+          {{/if}}
+        </div>
+
+        <label
+          for='title'
+          class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+        >
+          Title
+          <input
             name='title'
+            type='text'
             placeholder='Title'
             value='{{@rental.title}}'
-            {{!-- {{on 'focusout' this.checkRental}} --}}
+            class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
           />
         </label>
-        <label class='mx-4'>
-          <span class='text-3xl my-4 font-semibold block'>Owner</span>
+
+        <div class='h-8'>
+          {{#if this.errors.title}}
+            <span
+              class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+            > {{this.errors.title}} </span>
+
+          {{/if}}
+        </div>
+        <label
+          for='owner'
+          class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+        >
+          Owner
           <input
-            type='text'
-            class='border-black border-2 rounded-md h-10 text-center border-solid'
             name='owner'
+            type='text'
             placeholder='Owner'
             value='{{@rental.owner}}'
-            {{!-- {{on 'focusout' this.checkRental}} --}}
+            class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
           />
         </label>
-      </div>
-      <div class='flex flex-col flex-wrap'>
+        <div class='h-8'>
+          {{#if this.errors.owner}}
+            <span
+              class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+            > {{this.errors.owner}} </span>
 
-        <label class='mx-4'>
-          <span class='text-3xl my-4 font-semibold block'>City</span>
+          {{/if}}
+        </div>
+      </div>
+      <div class='mb-4 flex flex-col p-2'>
+        <label
+          for='city'
+          class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+        >
+          City
           <input
-            type='text'
-            class='border-black border-2 rounded-md h-10 text-center border-solid'
             name='city'
+            type='text'
             placeholder='City'
             value='{{@rental.city}}'
-            {{!-- {{on 'focusout' this.checkRental}} --}}
-          />
-        </label>
-        <label class='mx-4'>
-          <span class='text-3xl my-4 font-semibold block'>Category</span>
+            class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+          /></label>
+        <div class='h-8'>
+          {{#if this.errors.city}}
+            <span
+              class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+            > {{this.errors.city}} </span>
+
+          {{/if}}
+        </div>
+
+        <label
+          for='category'
+          class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+        >
+          Category
           <select
             name='category'
-            class='border-black border-2 rounded-md h-10 w-full text-center'
-            {{!-- {{on 'focusout' this.checkRental}} --}}
+            type='text'
+            value='{{@rental.category}}'
+            class='relative w-full rounded border p-2.5 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
           >
-            {{#if (@rental.category 'Community')}}
-              <option value='Community' selected>Community</option>
-            {{else}}
-              <option value='Community'>Community</option>
-            {{/if}}
-            {{#if (@rental.category 'Standalone')}}
-              <option value='Standalone' selected>Standalone</option>
-            {{else}}
-              <option value='Standalone'>Standalone</option>
-            {{/if}}
-
+            <option value='Community' selected>Community</option>
+            <option value='Standalone'>Standalone</option>
           </select>
         </label>
-        <label class='mx-4'>
-          <span class='text-3xl my-4 font-semibold block'>Bedrooms</span>
+        <div class='h-8'>
+          {{#if this.errors.category}}
+            <span
+              class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+            > {{this.errors.category}} </span>
+
+          {{/if}}
+        </div>
+
+        <label
+          for='bedrooms'
+          class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+        >
+          Bedrooms
           <input
-            type='number'
-            class='border-black border-2 rounded-md h-10 text-center border-solid'
             name='bedrooms'
-            placeholder='Bedrooms'
+            type='number'
             value='{{@rental.bedrooms}}'
-            {{!-- {{on 'focusout' this.checkRental}} --}}
-          />
-        </label>
+            placeholder='Bedrooms'
+            class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+          /></label>
+        <div class='h-8'>
+          {{#if this.errors.bedrooms}}
+            <span
+              class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+            > {{this.errors.bedrooms}} </span>
+
+          {{/if}}
+        </div>
       </div>
     </div>
-    <div class='flex flex-col flex-wrap'>
-
-      <label class='block md:mx-auto lg:mx-auto sm:ml-4 mx-4 w-full'>
-        <span
-          class='text-3xl font-semibold block my-4 text-center'
-        >Description</span>
+    <div class='p-3'>
+      <label
+        for='description'
+        class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+      >
+        Description
         <textarea
-          type='text'
-          class='border-black border-2 rounded-md text-center h-32 border-solid w-full'
           name='description'
+          type='text'
           placeholder='Description'
-          value='{{this.rental.description}}'
-          {{!-- {{on 'focusout' this.checkRental}} --}}
-        />
+          value='{{@rental.description}}'
+          class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+        ></textarea>
       </label>
-      <button
-        type='submit'
-        class='bg-blue-300 text-xl rounded-md inline-block mx-auto my-4 text-yellow-100 p-5'
-      >UPDATE</button>
+      <div class='h-8'>
+        {{#if this.errors.description}}
+          <span
+            class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+          > {{this.errors.description}} </span>
 
+        {{/if}}
+      </div>
     </div>
+    <button
+      type='submit'
+      class='mx-auto my-8 inline-block rounded-md bg-blue-300 p-5 text-xl text-yellow-100'
+    >UPDATE</button>
   </div>
+
 </form>

@@ -23,19 +23,16 @@ export default class RentalForm extends Component<RentalUpdateArgs> {
   //   this.rental = event.target.value
   // }
   @action
-  checkRental(formId: string) {
-    const form = document.getElementById(formId);
-    console.log(form);
-    // if (form !== null) {
-    //   //const formData = new FormData(form);
-    // }
-    // const formValues: Record<string, string> = {};
+  checkForm(event: Event) {
+    event.preventDefault();
+    console.log(event.target);
 
-    // formData.forEach((value, key) => {
-    //   formValues[key] = value.toString();
-    // });
-    // this.errors = checkErrors(formValues);
-    // //If there are errors, it doesnt send data
+    const form = event.target as HTMLInputElement;
+    // const formData = new FormData(form);
+    const formValues: Record<string, string> = {};
+    console.log(Object.keys(this.errors).length);
+    formValues[form.name] = form.value.toString();
+    this.errors = checkErrors(formValues);
     if (Object.keys(this.errors).length > 0) {
       return;
     }

@@ -5,7 +5,7 @@ const COMMUNITY_CATEGORIES = ['Condo', 'Townhouse', 'Apartment'];
 export default class RentalModel extends Model {
   @attr('string')
   declare title: string;
-  @attr('string')//Se puede usar{@attr('string') ,defaultValue:'owner'}
+  @attr('string') //Se puede usar{@attr('string') ,defaultValue:'owner'}
   declare owner: string;
   @attr('string')
   declare city: string;
