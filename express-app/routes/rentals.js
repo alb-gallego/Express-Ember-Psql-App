@@ -24,8 +24,20 @@ const pool = new Pool(config);
 
 //CRUD METHODS
 const getRentals = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  console.log(page);
+  let offset = 0;
+  if (page === 1) {
+    offset = 0;
+  } else {
+    offset = (page - 1) * 4;
+  }
+
+  console.log(offset);
   try {
-    const result = await pool.query("SELECT * FROM rental");
+    const result = await pool.query(
+      `SELECT * FROM rental LIMIT 4 OFFSET ${offset};`
+    );
 
     const serializer = new JSONAPISerializer("rentals", {
       attributes: [

@@ -30,12 +30,10 @@ export default class RentalForm extends Component {
   @action
   checkForm(event: Event) {
     event.preventDefault();
-    console.log(event.target);
 
     const form = event.target as HTMLInputElement;
     // const formData = new FormData(form);
     const formValues: Record<string, string> = {};
-    console.log(Object.keys(this.errors).length);
     formValues[form.name] = form.value.toString();
     this.errors = checkErrors(formValues);
     if (Object.keys(this.errors).length > 0) {
@@ -49,7 +47,6 @@ export default class RentalForm extends Component {
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
     const formValues: Record<string, string> = {};
-    console.log(Object.keys(this.errors).length);
 
     formData.forEach((value, key) => {
       formValues[key] = value.toString();
@@ -81,7 +78,6 @@ export default class RentalForm extends Component {
       post.save();
 
       this.router.transitionTo('index');
-      console.log('RUTA A INDEX');
     } catch (error) {
       console.log(error);
       this.router.transitionTo('create-rental');

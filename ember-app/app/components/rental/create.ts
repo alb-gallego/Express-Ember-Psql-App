@@ -61,7 +61,7 @@ export default class RentalForm extends Component {
         },
       ],
     };
-    console.log(JSON.stringify(rentalPost));
+    // console.log(JSON.stringify(rentalPost));
     await fetch('http://localhost:3000/rentals', {
       method: 'POST',
       headers: {
@@ -75,14 +75,10 @@ export default class RentalForm extends Component {
         }
         return response;
       })
-      .then((data) => {
-        console.log(data);
-      })
       .catch((error) => {
         console.error('There was an error:', error);
       });
 
     this.router.transitionTo('index');
-    console.log('RUTA A INDEX');
   }
 }
