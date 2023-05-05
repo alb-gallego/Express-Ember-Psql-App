@@ -26,7 +26,9 @@
   "devDependencies": {
     "@csstools/postcss-sass": "^4.0.0",
     "@ember/optional-features": "^2.0.0",
+    "@ember/render-modifiers": "^2.0.5",
     "@ember/test-helpers": "^2.6.0",
+    "@embroider/macros": "^1.8.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "@tsconfig/ember": "^2.0.0",
@@ -76,6 +78,7 @@
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^8.1.1",
     "ember-load-initializers": "^2.1.2",
+    "ember-modifier": "^3.2.7",
     "ember-page-title": "^7.0.0",
     "ember-qunit": "^5.1.5",
     "ember-resolver": "^8.0.3",

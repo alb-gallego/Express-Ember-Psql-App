@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS rental (
   category VARCHAR(255),
   bedrooms INT,
   image VARCHAR(255),
-  description VARCHAR(255)
+  description VARCHAR(255),
+  fecha_creacion TIMESTAMP NOT NULL DEFAULT NOW()
+
 );
 
 INSERT INTO rental ( title,owner,city,category,bedrooms,image,description) VALUES 

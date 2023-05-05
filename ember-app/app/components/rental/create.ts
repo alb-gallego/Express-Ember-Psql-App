@@ -5,7 +5,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import checkErrors from 'super-rentals/utils/validation';
 import Store from '@ember-data/store';
-import { InputError } from './form-create';
+import { InputError } from './form-create/component';
 // import { invokeHelper } from '@ember/helper';
 // import { getValue } from '@glimmer/tracking/primitives/cache';
 

@@ -5,7 +5,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import Rental from 'super-rentals/models/rental';
 import checkErrors from 'super-rentals/utils/validation';
-import { InputError } from './form-create';
+import { InputError } from '../form-create/component';
 
 interface RentalUpdateArgs {
   rental: Rental;

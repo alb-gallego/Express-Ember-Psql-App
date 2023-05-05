@@ -1,12 +1,12 @@
 {{#if @this.isLarge}}
   <button type='button' {{on 'click' this.toggleSize}}>
     <img class='rounded-xl shadow-lg max-w-full w-full h-full' ...attributes />
-    <small class='text-blue-400'>View Larger</small>
+    <small class='text-blue-400'>View Smaller</small>
   </button>
 {{else}}
   <button type='button' {{on 'click' this.toggleSize}}>
     <img ...attributes class='rounded-xl shadow-lg max-w-full w-28 h-24' />
-    <small class='text-blue-400'>View Smaller</small>
+    <small class='text-blue-400'>View Larger</small>
 
   </button>
 {{/if}}

@@ -6,7 +6,6 @@
       class='border-black border-2 rounded-md border-solid w-full'
     />
   </label>
-
   <label for='order' class='mx-2 border-2 border-black'>
     <span class='font-semibold px-2 py-3'>Order by:</span>
     <select name='order' {{on 'change' this.sortBy}}>
@@ -18,13 +17,15 @@
       <option value='dateDesc'>Most Recent</option>
       <option value='dateAsc'>Last Recent</option>
     </select>
-
   </label>
 </div>
 
-<ul class='flex flex-col flex-wrap items-center justify-center'>
+<ul
+  class='flex flex-col flex-nowrap items-center justify-center'
+  {{did-insert this.loadRentals}}
+>
   <Rentals::Filter
-    @rentals={{@this.rentals}}
+    @rentals={{this.rentals}}
     @query={{this.query}}
     @order={{this.sort}}
     as |results|
@@ -32,5 +33,6 @@
     {{#each results as |rental|}}
       <li><Rental @rental={{rental}} /></li>
     {{/each}}
+
   </Rentals::Filter>
 </ul>

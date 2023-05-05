@@ -11,16 +11,20 @@ export default class IndexRoute extends Route {
   // }
 
   async model() {
-    const res: any = await this.store.findAll('rental');
-    let result: Rental[] = [];
+    // return await this.store.query('rental', { page: { limit: 3, offset: 0 } });
+    // const options = { page: 1 };
 
-    res.forEach((rental: Rental) => {
-      console.log(rental.id);
-      if (rental.id) {
-        result.push(rental);
-      }
-    });
+    // const res: any = await this.store.query('rental', options);
+    // let result: Rental[] = [];
 
-    return result;
+    // res.forEach((rental: Rental) => {
+    //   console.log(rental.id);
+    //   if (rental.id) {
+    //     result.push(rental);
+    //   }
+    // });
+
+    // return result;
+    console.log('Ruta a index');
   }
 }
