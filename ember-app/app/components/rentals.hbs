@@ -31,7 +31,10 @@
     as |results|
   >
 
-    <Rentals::InfiniteScroller @onLoadMore={{this.loadMore}}>
+    <Rentals::InfiniteScroller
+      @onLoadMore={{this.loadMore}}
+      @canLoad={{this.canLoad}}
+    >
       {{#each results as |rental|}}
         <li><Rental @rental={{rental}} /></li>
       {{/each}}

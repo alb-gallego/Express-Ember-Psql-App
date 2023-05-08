@@ -11,6 +11,7 @@ const { round } = Math;
 
 interface RentalsInfiniteScrollerArgs {
   onLoadMore(): () => void;
+  canLoad: boolean;
 }
 
 type ScrollState = {
@@ -78,10 +79,10 @@ export default class RentalsInfiniteScroller extends Component<RentalsInfiniteSc
 
   checkShouldLoadMore() {
     const scrollState = this.#getScrollState();
-    const shouldLoadMore =
-      (scrollState.reachedBottom && !this.isLoading) ||
-      !scrollState.isScrollable;
 
+    const shouldLoadMore =
+      (scrollState.reachedBottom && !this.isLoading && this.args.canLoad) ||
+      !scrollState.isScrollable;
     if (shouldLoadMore) {
       this.loadMore();
     }

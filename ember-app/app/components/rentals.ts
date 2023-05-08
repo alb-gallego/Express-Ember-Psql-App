@@ -14,6 +14,7 @@ export default class RentalsComponent extends Component {
   @tracked sort = '';
   @tracked rentals: Rental[] = [];
   @tracked page = 1;
+  @tracked canLoad: boolean = true;
   @service store: any;
 
   @action
@@ -62,6 +63,7 @@ export default class RentalsComponent extends Component {
 
       return this.rentals;
     } catch (error) {
+      this.canLoad = false;
       this.page -= 1;
       console.log('No hay mas rentals que mostrar');
     }
