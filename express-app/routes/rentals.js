@@ -17,10 +17,10 @@ const config = {
 };
 
 const pool = new Pool(config);
-// //Init sql script to create table
-// const fs = require('fs');
-// const sql = fs.readFileSync('./db/init.sql').toString();
-// pool.query(sql);
+//Init sql script to create table
+const fs = require("fs");
+const sql = fs.readFileSync("../db/init.sql").toString();
+pool.query(sql);
 
 //CRUD METHODS
 const getRentals = async (req, res) => {
@@ -51,9 +51,11 @@ const getRentals = async (req, res) => {
         "bedrooms",
         "image",
         "description",
+        "creation_date",
       ],
     });
     const jsonapiData = serializer.serialize(result.rows);
+    console.log(result.rows);
 
     // Enviamos la respuesta como JSONAPI
     res.setHeader("Content-Type", "application/vnd.api+json");
@@ -79,6 +81,7 @@ const getRentalById = async (req, res) => {
         "bedrooms",
         "image",
         "description",
+        "creation_date",
       ],
     });
     const rental = result.rows[0];
@@ -125,6 +128,7 @@ const postRental = async (req, res) => {
         bedrooms,
         image,
         description,
+        creation_date,
       },
     } = data[0];
     const attributes = data[0].attributes;
@@ -154,6 +158,7 @@ const postRental = async (req, res) => {
           "bedrooms",
           "image",
           "description",
+          "creation_date",
         ],
       });
 
@@ -184,6 +189,7 @@ const updateRental = async (req, res) => {
         bedrooms,
         image,
         description,
+        creation_date,
       },
     } = data[0];
     const attributes = data[0].attributes;
@@ -211,6 +217,7 @@ const updateRental = async (req, res) => {
           "bedrooms",
           "image",
           "description",
+          "creation_date",
         ],
       });
 

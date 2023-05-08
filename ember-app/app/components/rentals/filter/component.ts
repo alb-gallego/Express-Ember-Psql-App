@@ -25,8 +25,12 @@ export default class RentalsFilterComponent extends Component<RentalsFilterArgs>
       case 'bedroomsDesc':
         rentals.sort(sortByProperty('bedrooms', false));
         break;
-      // case 'dateDesc':
-      // case 'dateAsc':
+      case 'dateAsc':
+        rentals.sort(sortByProperty('creation_date', false));
+        break;
+      case 'dateDesc':
+        rentals.sort(sortByProperty('creation_date', true));
+        break;
       default:
         if (query) {
           rentals = rentals.filter((rental: Rental) =>

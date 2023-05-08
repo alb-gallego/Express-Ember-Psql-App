@@ -17,6 +17,8 @@ export default class RentalModel extends Model {
   declare bedrooms: number;
   @attr('string')
   declare description: string;
+  @attr('date')
+  declare creation_date: Date;
 
   get type() {
     if (COMMUNITY_CATEGORIES.includes(this.category)) {
