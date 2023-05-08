@@ -644,6 +644,10 @@ video {
   height: 100%;
 }
 
+.max-h-\[550px\] {
+  max-height: 550px;
+}
+
 .w-28 {
   width: 7rem;
 }
@@ -700,6 +704,14 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(0px * var(--tw-space-x-reverse));
   margin-left: calc(0px * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
 }
 
 .rounded {

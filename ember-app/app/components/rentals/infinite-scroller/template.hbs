@@ -1,1 +1,6 @@
-{{yield}}
+<div
+  class='overflow-y-auto max-h-[550px] overflow-x-hidden max-w-full'
+  {{this.setScroller @element}}
+>
+  {{yield}}
+</div>

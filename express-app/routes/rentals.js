@@ -38,6 +38,9 @@ const getRentals = async (req, res) => {
     const result = await pool.query(
       `SELECT * FROM rental LIMIT 4 OFFSET ${offset};`
     );
+    if (result.rows.length === 0) {
+      return res.status(404).send("No hay más rentals");
+    }
 
     const serializer = new JSONAPISerializer("rentals", {
       attributes: [

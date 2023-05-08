@@ -30,9 +30,11 @@
     @order={{this.sort}}
     as |results|
   >
-    {{#each results as |rental|}}
-      <li><Rental @rental={{rental}} /></li>
-    {{/each}}
 
+    <Rentals::InfiniteScroller @onLoadMore={{this.loadMore}}>
+      {{#each results as |rental|}}
+        <li><Rental @rental={{rental}} /></li>
+      {{/each}}
+    </Rentals::InfiniteScroller>
   </Rentals::Filter>
 </ul>
