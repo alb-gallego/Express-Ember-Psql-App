@@ -18,14 +18,13 @@ const config = {
 
 const pool = new Pool(config);
 //Init sql script to create table
-const fs = require("fs");
-const sql = fs.readFileSync("../db/init.sql").toString();
-pool.query(sql);
+// const fs = require("fs");
+// const sql = fs.readFileSync("../db/init.sql").toString();
+// pool.query(sql);
 
 //CRUD METHODS
 const getRentals = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  console.log(page);
   let offset = 0;
   if (page === 1) {
     offset = 0;
@@ -33,13 +32,12 @@ const getRentals = async (req, res) => {
     offset = (page - 1) * 4;
   }
 
-  console.log(offset);
   try {
     const result = await pool.query(
       `SELECT * FROM rental LIMIT 4 OFFSET ${offset};`
     );
     if (result.rows.length === 0) {
-      return res.status(404).send("No hay más rentals");
+      return res.status(200).send("No hay más rentals");
     }
 
     const serializer = new JSONAPISerializer("rentals", {
@@ -55,7 +53,6 @@ const getRentals = async (req, res) => {
       ],
     });
     const jsonapiData = serializer.serialize(result.rows);
-    console.log(result.rows);
 
     // Enviamos la respuesta como JSONAPI
     res.setHeader("Content-Type", "application/vnd.api+json");
@@ -240,7 +237,7 @@ const deleteRental = async (req, res) => {
       `DELETE FROM rental WHERE rental.id = '${req.params.id}'`
     );
     console.log(response);
-    //res.send(`Rental with id ${req.params.id} was deleted.`);
+    res.status(200).send(`Rental with id ${req.params.id} was deleted.`);
   } catch (err) {
     console.error(err);
     res.status(500).send("Error deleting rental");
