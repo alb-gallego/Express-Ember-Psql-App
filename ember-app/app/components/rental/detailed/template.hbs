@@ -17,41 +17,42 @@
       <div class='mx-5 bg-slate-100 p-5 rounded-lg'>
         <article class='flex flex-col justify-center'>
           <img src={{@rental.image}} alt='{{@rental.title}}' />
+          <div class='flex-row flex justify-between'>
+            <div class='grid grid-rows-5'>
+              <h3 class='font-bold text-3xl'>About {{@rental.title}}</h3>
+              <div class='detail'>
+                <span>Owner:</span>
+                {{@rental.owner}}
+              </div>
+              <div class='detail'>
+                <span>Type:</span>
+                {{@rental.type}}–{{@rental.category}}
+              </div>
+              <div class='detail'>
+                <span>Location:</span>
+                {{@rental.city}}
+              </div>
+              <div class='detail'>
+                <span>Number of bedrooms:</span>
+                {{@rental.bedrooms}}
+              </div>
+              <div class='detail'>
+                <p>{{@rental.description}}</p>
+              </div>
+            </div>
+            <div class='flex flex-wrap flex-row items-center justify-center'>
+              <button
+                type='button'
+                class='text-white bg-red-600 border mx-5 p-5 border-black rounded-md'
+                {{on 'click' (fn this.deleteRental @rental)}}
+              >
+                DELETE
+              </button>
 
-          <div class='grid grid-rows-5'>
-            <h3 class='font-bold text-3xl'>About {{@rental.title}}</h3>
-            <div class='detail'>
-              <span>Owner:</span>
-              {{@rental.owner}}
-            </div>
-            <div class='detail'>
-              <span>Type:</span>
-              {{@rental.type}}–{{@rental.category}}
-            </div>
-            <div class='detail'>
-              <span>Location:</span>
-              {{@rental.city}}
-            </div>
-            <div class='detail'>
-              <span>Number of bedrooms:</span>
-              {{@rental.bedrooms}}
-            </div>
-            <div class='detail'>
-              <p>{{@rental.description}}</p>
             </div>
           </div>
         </article>
       </div>
-    </div>
-    <div class='flex flex-wrap my-5 flex-row items-center justify-center'>
-      <button
-        type='button'
-        class='text-white bg-red-600 border mx-5 p-5 border-black rounded-md'
-        {{on 'click' (fn this.deleteRental @rental)}}
-      >
-        DELETE RENTAL
-      </button>
-
     </div>
   </div>
 </div>

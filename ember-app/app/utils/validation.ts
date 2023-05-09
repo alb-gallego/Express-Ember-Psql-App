@@ -8,8 +8,6 @@ export default function checkErrors(formValues: any) {
       formValues[key] !== ''
     ) {
       if (key === 'bedrooms' && parseInt(formValues['bedrooms']) <= 0) {
-        console.log('Fallo en bedrooms');
-
         const message: string = `The number of ${key} must be greater than 0`;
         if (arrErrors.get(key) !== message) {
           arrErrors.set(key, message);
@@ -19,19 +17,14 @@ export default function checkErrors(formValues: any) {
         key !== 'bedrooms' &&
         key !== 'image'
       ) {
-        console.log('Hola');
-
         arrErrors.set(key, `The ${key} length must be greater than 5`);
-        console.log(arrErrors);
       }
     } else {
       arrErrors.set(key, `The ${key} cant be empty`);
-      console.log(arrErrors);
     }
   }
   // If there are errors, return the array of error messages
   if (arrErrors.size > 0) {
-    console.log(arrErrors);
     const res = {
       image: arrErrors.get('image'),
       title: arrErrors.get('title'),
@@ -41,7 +34,6 @@ export default function checkErrors(formValues: any) {
       bedrooms: arrErrors.get('bedrooms'),
       category: arrErrors.get('category'),
     };
-    console.log(res);
 
     return res;
   } else {

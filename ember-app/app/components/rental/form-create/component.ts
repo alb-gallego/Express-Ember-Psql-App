@@ -41,6 +41,43 @@ export default class RentalForm extends Component {
     }
   }
 
+  // @action
+  // async sendRental(event: Event) {
+  //   event.preventDefault();
+  //   const form = event.target as HTMLFormElement;
+  //   const formData = new FormData(form);
+  //   const formValues: Record<string, string> = {};
+
+  //   formData.forEach((value, key) => {
+  //     formValues[key] = value.toString();
+  //   });
+
+  //   this.errors = checkErrors(formValues);
+
+  //   if (Object.keys(this.errors).length > 0) {
+  //     return;
+  //   }
+
+  //   let post = this.store.createRecord('rental', {
+  //     title: formValues['title'],
+  //     image: formValues['image'],
+  //     owner: formValues['owner'],
+  //     city: formValues['city'],
+  //     category: formValues['category'],
+  //     bedrooms: formValues['bedrooms'],
+  //     description: formValues['description'],
+  //   });
+
+  //   try {
+  //     post.save();
+
+  //     this.router.transitionTo('index');
+  //   } catch (error) {
+  //     console.log(error);
+  //     this.router.transitionTo('create-rental');
+  //   }
+  // }
+
   @action
   async sendRental(event: Event) {
     event.preventDefault();
@@ -51,36 +88,47 @@ export default class RentalForm extends Component {
     formData.forEach((value, key) => {
       formValues[key] = value.toString();
     });
-
     this.errors = checkErrors(formValues);
-
-    //If there are errors, it doesnt send data
-    // const errorsNotEmpty = Object.values(this.errors).every(
-    //   (value) => value !== ''
-    // );
-    // console.log(errorsNotEmpty);
 
     if (Object.keys(this.errors).length > 0) {
       return;
     }
 
-    let post = this.store.createRecord('rental', {
-      title: formValues['title'],
-      image: formValues['image'],
-      owner: formValues['owner'],
-      city: formValues['city'],
-      category: formValues['category'],
-      bedrooms: formValues['bedrooms'],
-      description: formValues['description'],
-    });
+    const rentalPost = {
+      data: [
+        {
+          attributes: {
+            title: formValues['title'],
+            image: formValues['image'],
+            owner: formValues['owner'],
+            city: formValues['city'],
+            category: formValues['category'],
+            bedrooms: formValues['bedrooms'],
+            description: formValues['description'],
+          },
+          type: 'rental',
+        },
+      ],
+    };
+    // console.log(JSON.stringify(rentalPost));
+    await fetch('http://localhost:3000/rentals', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(rentalPost),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        this.router.transitionTo('index');
 
-    try {
-      post.save();
-
-      this.router.transitionTo('index');
-    } catch (error) {
-      console.log(error);
-      this.router.transitionTo('create-rental');
-    }
+        return response;
+      })
+      .catch((error) => {
+        console.error('There was an error:', error);
+        this.router.transitionTo('create-rental');
+      });
   }
 }

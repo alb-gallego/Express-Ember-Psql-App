@@ -69,6 +69,6 @@ export default class RentalForm extends Component<RentalUpdateArgs> {
       rental.save();
     });
 
-    this.router.transitionTo('index');
+    this.router.transitionTo('rental');
   }
 }

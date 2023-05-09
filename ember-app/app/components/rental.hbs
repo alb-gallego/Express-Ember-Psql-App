@@ -1,7 +1,7 @@
 {{#if this.flexCol}}
 
   <div
-    class='m-5 flex flex-wrap justify-center rounded-xl bg-slate-100 p-8 text-center drop-shadow-lg transition delay-150 duration-700 ease-in-out hover:-translate-y-1 hover:scale-125 flex-col'
+    class='m-5 flex flex-col flex-wrap justify-center rounded-xl bg-slate-100 p-8 text-center drop-shadow-lg transition delay-150 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110'
   >
     <Rental::Image
       src={{@rental.image}}
@@ -19,7 +19,7 @@
       <div class='flex flex-row flex-wrap items-center justify-center'>
         <div class='detail flex flex-wrap flex-col justify-center'>
           <div>
-            <span>Owner</span>
+            <span>Owner:</span>
             {{@rental.owner}}
           </div>
           <div>
@@ -43,7 +43,7 @@
   </div>
 {{else}}
   <div
-    class='m-5 flex flex-wrap justify-center rounded-xl bg-slate-100 p-8 text-center drop-shadow-lg transition delay-150 duration-700 ease-in-out hover:-translate-y-1 hover:scale-125'
+    class='m-5 flex flex-wrap justify-center rounded-xl bg-slate-100 p-8 text-center drop-shadow-lg transition delay-150 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110'
   >
     <div class='flex flex-wrap items-center justify-center'>
       <Rental::Image

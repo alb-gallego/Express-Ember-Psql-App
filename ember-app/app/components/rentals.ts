@@ -35,7 +35,6 @@ export default class RentalsComponent extends Component {
         result.push(rental);
       }
     });
-    console.log(result);
 
     this.rentals = result;
     return this.rentals;
@@ -43,29 +42,24 @@ export default class RentalsComponent extends Component {
 
   @action
   async loadMore() {
-    console.log('Load more');
     this.page = this.page + 1;
     const options = { page: this.page };
 
-    console.log(this.page);
     try {
       const newRentals: Rental[] = await this.store.query('rental', options);
       let result: Rental[] = [];
       newRentals.forEach((rental: Rental) => {
         if (rental.id) {
           result.push(rental);
-          console.log(rental.id);
         }
       });
 
       this.rentals = this.rentals.concat(result);
-      console.log(this.rentals);
 
       return this.rentals;
     } catch (error) {
       this.canLoad = false;
       this.page -= 1;
-      console.log('No hay mas rentals que mostrar');
     }
   }
 }
