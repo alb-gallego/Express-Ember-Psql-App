@@ -21,7 +21,7 @@
 </div>
 
 <ul
-  class='flex flex-col items-center justify-center w-full overflow-visible'
+  class='flex flex-col items-center justify-center max-w-full'
   {{did-insert this.loadRentals}}
 >
   <Rentals::Filter
@@ -36,7 +36,7 @@
       @canLoad={{this.canLoad}}
     >
       {{#each results as |rental|}}
-        <li><Rental @rental={{rental}} /></li>
+        <li class='px-20'><Rental @rental={{rental}} /></li>
       {{/each}}
     </Rentals::InfiniteScroller>
   </Rentals::Filter>
