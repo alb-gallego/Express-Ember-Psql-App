@@ -3,7 +3,6 @@ import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { trackedFunction } from 'ember-resources/util/function';
-import RentalService from 'super-rentals/rental-service/service';
 import RentalJSON from 'super-rentals/interfaces/rentalJSON';
 import PruebaResource from 'super-rentals/prueba-resource/service';
 import { use, resource } from 'ember-resources';
@@ -53,11 +52,6 @@ export default class RentalsComponent extends Component {
           });
           console.log('RTRACKED DESPUES DE ', this.rTracked);
         }
-
-        // console.log('THIS.RENTALS', rentals);
-        // console.log('RENTALS', merged);
-        // console.log(state.rentalArray);
-        // console.log('STATE VALUE', state.value);
       })
       .catch((error) => {
         console.log('Error occurred:', error);

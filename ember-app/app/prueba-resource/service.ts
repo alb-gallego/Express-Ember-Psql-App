@@ -1,4 +1,3 @@
-import { action } from '@ember/object';
 import Service from '@ember/service';
 import { resource } from 'ember-resources';
 import rentalPOST from 'super-rentals/interfaces/rentalPOST';
@@ -7,7 +6,7 @@ import { TrackedObject } from 'tracked-built-ins';
 type actions = 'GET' | 'POST' | 'UPDATE' | 'DELETE';
 
 export default class PruebaResource extends Service {
-  getRentals(url: string, page?: number) {
+  getRental(url: string) {
     return resource(({ on }) => {
       let state = new TrackedObject({
         isResolved: false,
@@ -21,7 +20,6 @@ export default class PruebaResource extends Service {
 
       on.cleanup(() => controller.abort());
 
-      page ? (url = url + `?page=${page}`) : url;
       console.log('Starting fetch...');
       fetch(url, { signal: controller.signal })
         .then((response) => response.json())
