@@ -39,7 +39,6 @@ const getRentals = async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(200).send("No hay más rentals");
     }
-
     const serializer = new JSONAPISerializer("rentals", {
       attributes: [
         "title",
@@ -125,7 +124,6 @@ const postRental = async (req, res) => {
         bedrooms,
         image,
         description,
-        creation_date,
       },
     } = data[0];
     const attributes = data[0].attributes;
@@ -155,7 +153,6 @@ const postRental = async (req, res) => {
           "bedrooms",
           "image",
           "description",
-          "creation_date",
         ],
       });
 
@@ -186,7 +183,6 @@ const updateRental = async (req, res) => {
         bedrooms,
         image,
         description,
-        creation_date,
       },
     } = data[0];
     const attributes = data[0].attributes;

@@ -1,58 +1,249 @@
-<Jumbo>
-  <h2 class='font-bold text-6xl'>{{@rental.title}}</h2>
-  <p>Nice find! This looks like a nice place to stay near {{@rental.city}}.</p>
-  <a
-    href='#'
-    target='_blank'
-    rel='external nofollow noopener noreferrer'
-    class='share button'
-  >
-    Share on Twitter
-  </a>
-</Jumbo>
-<div class='flex flex-row justify-center'>
-  <Rental::FormUpdate @rental={{@rental}} />
-  <div class='mx-4'>
-    <div class='flex flex-col justify-center w-full'>
-      <div class='mx-5 bg-slate-100 p-5 rounded-lg'>
-        <article class='flex flex-col justify-center'>
-          <img src={{@rental.image}} alt='{{@rental.title}}' />
-          <div class='flex-row flex justify-between'>
-            <div class='grid grid-rows-5'>
-              <h3 class='font-bold text-3xl'>About {{@rental.title}}</h3>
-              <div class='detail'>
-                <span>Owner:</span>
-                {{@rental.owner}}
-              </div>
-              <div class='detail'>
-                <span>Type:</span>
-                {{@rental.type}}–{{@rental.category}}
-              </div>
-              <div class='detail'>
-                <span>Location:</span>
-                {{@rental.city}}
-              </div>
-              <div class='detail'>
-                <span>Number of bedrooms:</span>
-                {{@rental.bedrooms}}
-              </div>
-              <div class='detail'>
-                <p>{{@rental.description}}</p>
-              </div>
-            </div>
-            <div class='flex flex-wrap flex-row items-center justify-center'>
-              <button
-                type='button'
-                class='text-white bg-red-600 border mx-5 p-5 border-black rounded-md'
-                {{on 'click' (fn this.deleteRental @rental)}}
-              >
-                DELETE
-              </button>
+{{#if this.rentalData.isResolved}}
 
+  <Jumbo>
+
+    <h2
+      class='font-bold text-6xl'
+    >{{this.rentalData.value.data.attributes.title}}</h2>
+    <p>Nice find! This looks like a nice place to stay near
+      {{this.rentalData.value.data.attributes.city}}.</p>
+    <a
+      href='#'
+      target='_blank'
+      rel='external nofollow noopener noreferrer'
+      class='share button'
+    >
+      Share on Twitter
+    </a>
+  </Jumbo>
+  <div class='flex flex-row justify-center'>
+
+    <div class='mx-4'>
+      <div class='flex flex-col justify-center w-full'>
+        <div class='mx-5 mb-4 bg-slate-100 p-5 rounded-lg'>
+          <article class='flex flex-col justify-center'>
+            <img
+              src={{this.rentalData.value.data.attributes.image}}
+              alt='{{this.rentalData.value.data.attributes.title}}'
+            />
+            <div class='flex-row flex justify-between'>
+              <div class='grid grid-rows-5'>
+                <h3 class='font-bold text-3xl'>About
+                  {{this.rentalData.value.data.attributes.title}}</h3>
+                <div class='detail'>
+                  <span>Owner:</span>
+                  {{this.rentalData.value.data.attributes.owner}}
+                </div>
+                <div class='detail'>
+                  <span>Category:</span>
+                  {{this.rentalData.value.data.attributes.category}}
+                </div>
+                <div class='detail'>
+                  <span>Location:</span>
+                  {{this.rentalData.value.data.attributes.city}}
+                </div>
+                <div class='detail'>
+                  <span>Number of bedrooms:</span>
+                  {{this.rentalData.value.data.attributes.bedrooms}}
+                </div>
+                <div class='detail'>
+                  <p>{{this.rentalData.value.data.attributes.description}}</p>
+                </div>
+              </div>
+              <div class='flex flex-wrap flex-row items-center justify-center'>
+                <button
+                  type='button'
+                  class='text-white bg-red-600 border mx-5 p-5 border-black rounded-md'
+                  {{on
+                    'click'
+                    (fn this.deleteRental this.rentalData.value.data.id)
+                  }}
+                >
+                  DELETE
+                </button>
+
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </div>
       </div>
     </div>
+    <form
+      {{on 'submit' this.updateRental}}
+      {{on 'input' this.checkForm}}
+      class='my-5'
+    >
+
+      <div
+        class='mx-auto flex w-full max-w-sm flex-col rounded-md border border-gray-200 bg-slate-300 p-4 shadow'
+      >
+        <div class='flex flex-row justify-center'>
+          <div class='mb-4 flex flex-col p-2'>
+            <label
+              for='image'
+              class='mb-1 text-xl font-semibold tracking-wide text-black sm:text-sm'
+            >
+              Image
+              <input
+                name='image'
+                type='text'
+                placeholder='Image'
+                value='{{this.rentalData.value.data.attributes.image}}'
+                class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+              /></label>
+
+            <div class='h-8'>
+              {{#if this.errors.image}}
+                <span
+                  class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+                > {{this.errors.image}} </span>
+
+              {{/if}}
+            </div>
+
+            <label
+              for='title'
+              class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+            >
+              Title
+              <input
+                name='title'
+                type='text'
+                placeholder='Title'
+                value='{{this.rentalData.value.data.attributes.title}}'
+                class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+              />
+            </label>
+
+            <div class='h-8'>
+              {{#if this.errors.title}}
+                <span
+                  class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+                > {{this.errors.title}} </span>
+
+              {{/if}}
+            </div>
+            <label
+              for='owner'
+              class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+            >
+              Owner
+              <input
+                name='owner'
+                type='text'
+                placeholder='Owner'
+                value='{{this.rentalData.value.data.attributes.owner}}'
+                class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+              />
+            </label>
+            <div class='h-8'>
+              {{#if this.errors.owner}}
+                <span
+                  class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+                > {{this.errors.owner}} </span>
+
+              {{/if}}
+            </div>
+          </div>
+          <div class='mb-4 flex flex-col p-2'>
+            <label
+              for='city'
+              class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+            >
+              City
+              <input
+                name='city'
+                type='text'
+                placeholder='City'
+                value='{{this.rentalData.value.data.attributes.city}}'
+                class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+              /></label>
+            <div class='h-8'>
+              {{#if this.errors.city}}
+                <span
+                  class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+                > {{this.errors.city}} </span>
+
+              {{/if}}
+            </div>
+
+            <label
+              for='category'
+              class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+            >
+              Category
+              <select
+                name='category'
+                type='text'
+                value='{{this.rentalData.value.data.attributes.category}}'
+                class='relative w-full rounded border p-2.5 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+              >
+                <option value='Community' selected>Community</option>
+                <option value='Standalone'>Standalone</option>
+              </select>
+            </label>
+            <div class='h-8'>
+              {{#if this.errors.category}}
+                <span
+                  class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+                > {{this.errors.category}} </span>
+
+              {{/if}}
+            </div>
+
+            <label
+              for='bedrooms'
+              class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+            >
+              Bedrooms
+              <input
+                name='bedrooms'
+                type='number'
+                value='{{this.rentalData.value.data.attributes.bedrooms}}'
+                placeholder='Bedrooms'
+                class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+              /></label>
+            <div class='h-8'>
+              {{#if this.errors.bedrooms}}
+                <span
+                  class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+                > {{this.errors.bedrooms}} </span>
+
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div class='p-3'>
+          <label
+            for='description'
+            class='mb-1 text-2xl font-semibold tracking-wide text-black sm:text-sm'
+          >
+            Description
+            <textarea
+              name='description'
+              type='text'
+              placeholder='Description'
+              value='{{this.rentalData.value.data.attributes.description}}'
+              class='relative w-full rounded border py-2 pl-2 pr-2 text-sm placeholder-gray-400 focus:border-indigo-400 focus:outline-none sm:text-base'
+            ></textarea>
+          </label>
+          <div class='h-8'>
+            {{#if this.errors.description}}
+              <span
+                class='mb-3 ml-1 mt-2 flex h-3 items-center text-xs font-medium tracking-wide text-red-500'
+              > {{this.errors.description}} </span>
+
+            {{/if}}
+          </div>
+        </div>
+        <button
+          type='submit'
+          class='mx-auto my-8 inline-block rounded-md bg-blue-300 p-5 text-xl text-yellow-100'
+        >UPDATE</button>
+      </div>
+
+    </form>
+
   </div>
-</div>
+
+{{/if}}

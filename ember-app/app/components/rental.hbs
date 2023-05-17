@@ -4,15 +4,15 @@
     class='m-5 flex flex-col flex-wrap justify-center rounded-xl bg-slate-100 p-8 text-center drop-shadow-lg transition delay-150 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110'
   >
     <Rental::Image
-      src={{@rental.image}}
-      alt='A picture of {{@rental.title}}'
+      src={{@rental.attributes.image}}
+      alt='A picture of {{@rental.attributes.title}}'
       @isLarge={{this.flexCol}}
       {{on 'click' this.changeFlex}}
     />
     <div class='flex flex-col items-center justify-center'>
       <h3 class='text-3xl font-semibold'>
-        <LinkTo @route='rental' @model={{@rental}}>
-          {{@rental.title}}
+        <LinkTo @route='rental' @model={{@rental.id}}>
+          {{@rental.attributes.title}}
         </LinkTo>
       </h3>
 
@@ -20,22 +20,22 @@
         <div class='detail flex flex-wrap flex-col justify-center'>
           <div>
             <span>Owner:</span>
-            {{@rental.owner}}
+            {{@rental.attributes.owner}}
           </div>
           <div>
             <span>Type:</span>
-            {{@rental.type}}
+            {{@rental.attributes.category}}
           </div>
         </div>
 
         <div class='detail mx-4 flex flex-wrap flex-col justify-center'>
           <div>
             <span>Location:</span>
-            {{@rental.city}}
+            {{@rental.attributes.city}}
           </div>
           <div>
             <span>Number of bedrooms:</span>
-            {{@rental.bedrooms}}
+            {{@rental.attributes.bedrooms}}
           </div>
         </div>
       </div>
@@ -45,10 +45,11 @@
   <div
     class='m-5 flex flex-wrap justify-center rounded-xl bg-slate-100 p-8 text-center drop-shadow-lg transition delay-150 duration-700 ease-in-out hover:-translate-y-1 hover:scale-110'
   >
+
     <div class='flex flex-wrap items-center justify-center'>
       <Rental::Image
-        src={{@rental.image}}
-        alt='A picture of {{@rental.title}}'
+        src={{@rental.attributes.image}}
+        alt='A picture of {{@rental.attributes.title}}'
         @isLarge={{this.flexCol}}
         {{on 'click' this.changeFlex}}
       />
@@ -57,8 +58,8 @@
 
     <div class='mx-8 flex flex-col items-center justify-center'>
       <h3 class='text-3xl font-semibold'>
-        <LinkTo @route='rental' @model={{@rental}}>
-          {{@rental.title}}
+        <LinkTo @route='rental' @model={{@rental.id}}>
+          {{@rental.attributes.title}}
         </LinkTo>
       </h3>
 
@@ -66,21 +67,21 @@
         <div class='detail'>
           <div>
             <span>Owner</span>
-            {{@rental.owner}}
+            {{@rental.attributes.owner}}
           </div>
           <div>
             <span>Type:</span>
-            {{@rental.type}}
+            {{@rental.attributes.category}}
           </div>
         </div>
         <div class='detail mx-4'>
           <div>
             <span>Location:</span>
-            {{@rental.city}}
+            {{@rental.attributes.city}}
           </div>
           <div>
             <span>Number of bedrooms:</span>
-            {{@rental.bedrooms}}
+            {{@rental.attributes.bedrooms}}
           </div>
         </div>
       </div>

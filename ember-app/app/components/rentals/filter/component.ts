@@ -1,9 +1,9 @@
 import Component from '@glimmer/component';
-import Rental from 'super-rentals/models/rental';
+import RentalJSON from 'super-rentals/interfaces/rentalJSON';
 import sortByProperty from 'super-rentals/utils/sort';
 
 interface RentalsFilterArgs {
-  rentals: Rental[];
+  rentals: RentalJSON[];
   query: string;
   order: string;
 }
@@ -33,8 +33,8 @@ export default class RentalsFilterComponent extends Component<RentalsFilterArgs>
         break;
       default:
         if (query) {
-          rentals = rentals.filter((rental: Rental) =>
-            rental.title.includes(query)
+          rentals = rentals.filter((rental: RentalJSON) =>
+            rental.attributes.title.includes(query)
           );
         }
         break;

@@ -1,43 +1,77 @@
-<div class='flex items-center flex-wrap justify-center'>
-  <label class='m-4'>
-    <span class='text-3xl font-semibold block'>Where would you like to stay?</span>
-    <Input
-      @value={{this.query}}
-      class='border-black border-2 rounded-md border-solid w-full'
-    />
-  </label>
-  <label for='order' class='mx-2 border-2 border-black'>
-    <span class='font-semibold px-2 py-3'>Order by:</span>
-    <select name='order' {{on 'change' this.sortBy}}>
-      <option value=''>Select option</option>
-      <option value='titleDesc'>Title A-Z</option>
-      <option value='titleAsc'>Title Z-A</option>
-      <option value='bedroomsAsc'>More Rooms </option>
-      <option value='bedroomsDesc'>Fewer Rooms</option>
-      <option value='dateDesc'>Most Recent</option>
-      <option value='dateAsc'>Last Recent</option>
-    </select>
-  </label>
-</div>
-
-<ul
-  class='flex flex-col items-center justify-center max-w-full'
-  {{did-insert this.loadRentals}}
->
-  <Rentals::Filter
-    @rentals={{this.rentals}}
-    @query={{this.query}}
-    @order={{this.sort}}
-    as |results|
+<div class='relative'>
+  <div
+    class='flex items-center flex-col justify-center
+      {{if this.isCreate "blur-sm"}}'
   >
+    <label class='m-4'>
+      <span class='text-3xl font-semibold block'>Where would you like to stay?</span>
+      <Input
+        @value={{this.query}}
+        class='border-black border-2 rounded-md border-solid w-full'
+      />
+    </label>
+    <label for='order' class='mx-2 border-2 border-black'>
+      <span class='font-semibold px-2 py-3'>Order by:</span>
+      <select name='order' {{on 'change' this.sortBy}}>
+        <option value=''>Select option</option>
+        <option value='titleDesc'>Title A-Z</option>
+        <option value='titleAsc'>Title Z-A</option>
+        <option value='bedroomsAsc'>More Rooms </option>
+        <option value='bedroomsDesc'>Fewer Rooms</option>
+        <option value='dateAsc'>Most Recent</option>
+        <option value='dateDesc'>Less Recent</option>
+      </select>
+    </label>
+    <button
+      {{on 'click' this.loadFormCreate}}
+      type='button'
+      class='p-3 bg-blue-400 text-white'
+    >Create Rental</button>
+    {{#if
+      (and this.rentalData.isResolved (not-eq this.state.rentalArray.length 0))
+    }}
 
-    <Rentals::InfiniteScroller
-      @onLoadMore={{this.loadMore}}
-      @canLoad={{this.canLoad}}
-    >
-      {{#each results as |rental|}}
-        <li class='px-20'><Rental @rental={{rental}} /></li>
-      {{/each}}
-    </Rentals::InfiniteScroller>
-  </Rentals::Filter>
-</ul>
+      <ul
+        class='flex flex-col items-center justify-center max-w-full'
+        {{!-- {{did-insert this.loadRentals}} --}}
+      >
+        <Rentals::Filter
+          {{!-- @rentals={{this.myData.value.data}} --}}
+          @rentals={{this.rTracked}}
+          @query={{this.query}}
+          @order={{this.sort}}
+          as |results|
+        >
+
+          <Rentals::InfiniteScroller
+            @onLoadMore={{this.loadMore}}
+            @canLoad={{this.canLoad}}
+          >
+            {{#each results as |rental|}}
+              <li class='px-20'><Rental @rental={{rental}} /></li>
+            {{/each}}
+          </Rentals::InfiniteScroller>
+        </Rentals::Filter>
+      </ul>
+    {{/if}}
+
+  </div>
+  {{#if this.isCreate}}
+    <div class='absolute inset-0 flex items-center justify-center'>
+      <div class='bg-white shadow-lg p-8'>
+        <button
+          {{on 'click' this.loadFormCreate}}
+          class='bg-blue-400 text-white p-3 flex items-end'
+          type='button'
+        >X</button>
+        <Rental::FormCreate
+          @onLoadFormCreate={{this.loadFormCreate}}
+          @rentals={{this.rTracked}}
+          @canLoad={{this.canLoad}}
+        />
+      </div>
+
+    </div>
+  {{/if}}
+
+</div>
