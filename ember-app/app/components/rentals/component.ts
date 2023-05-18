@@ -1,10 +1,6 @@
 import { action } from '@ember/object';
-import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { trackedFunction } from 'ember-resources/util/function';
-import RentalJSON from 'super-rentals/interfaces/rentalJSON';
-import PruebaResource from 'super-rentals/prueba-resource/service';
 import { use, resource } from 'ember-resources';
 import { RENTALS_URL_SCROLLED } from 'super-rentals/services/api/urls';
 import { TrackedArray, TrackedObject } from 'tracked-built-ins';
@@ -29,7 +25,6 @@ export default class RentalsComponent extends Component {
       value: null,
       error: null,
     });
-
     let controller = new AbortController();
     console.log(this.url);
 
